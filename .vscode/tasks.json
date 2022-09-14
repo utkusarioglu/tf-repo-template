@@ -1,0 +1,77 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "terraform plan",
+      "detail": "View the terraform plan. This task does not save the plan",
+      "type": "shell",
+      "command": "scripts/terraform.sh",
+      "args": [
+        "plan"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": false,
+        "close": false
+      }
+    },
+    {
+      "label": "terraform apply",
+      "detail": "Create & alter the resources",
+      "type": "shell",
+      "command": "scripts/terraform.sh",
+      "args": [
+        "apply"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": false,
+        "close": false
+      }
+    },
+    {
+      "label": "terraform destroy",
+      "detail": "Destroy the resources managed by this repo",
+      "type": "shell",
+      "command": "scripts/terraform.sh",
+      "args": [
+        "destroy"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": false,
+        "close": false
+      }
+    },
+    {
+      "label": "terraform init",
+      "detail": "Initialize Terraform providers",
+      "type": "shell",
+      "command": "scripts/terraform.sh",
+      "args": [
+        "init"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": false,
+        "close": false
+      }
+    },
+  ]
+}
