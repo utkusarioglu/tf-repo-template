@@ -3,12 +3,12 @@
     {
       "match": "\\.tf$",
       "isAsync": true,
-      "command": "scripts/terraform.sh fmt",
+      "command": "scripts/terraform.sh fmt -recursive",
     },
     {
       "match": "\\.tfvars$",
       "isAsync": true,
-      "command": "scripts/terraform.sh fmt",
+      "command": "scripts/terraform.sh fmt -recursive",
     }
   ],
   // this is because terraform plan and apply output can be humonguous
