@@ -8,21 +8,23 @@ source ${0%/*}/do-checks.sh || exit 4
 check_dependencies jq
 check_tfvars
 
-command=$1
-if [ -z $command ];
+command="$@"
+if [ -z "$command" ];
 then
-  echo "Error: The first param needs to be a valid Terraform command." 
-  echo "Example: apply"
+  echo "Error: The script requires params to run against Terraform" 
+  echo "Example: fmt -recursive"
   exit 5
 fi
 
 repo_root=$PWD
 project_root_rel_path=$(jq '.project_root_rel_path' $TFVARS_FILE_PATH -r)
 project_root=$(readlink -m $repo_root/$project_root_rel_path)
-repo_rel_path="${repo_root#"$project_root/"}"
+repo_rel_path=$(\
+  [[ $repo_root != $project_root ]] && echo "${repo_root#"$project_root/"}" \
+)
 
 cd $project_root
-if [ -z $repo_rel_path ];
+if [ -z "$repo_rel_path" ];
 then
   echo "Running \`terraform $command\` at current path…"
   terraform $command 
