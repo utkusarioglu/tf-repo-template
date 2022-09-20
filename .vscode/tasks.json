@@ -2,13 +2,14 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "terraform plan",
-      "detail": "View the terraform plan. This task does not save the plan",
+      "label": "Run tests",
+      "detail": "Run tests using TerraTest",
       "type": "shell",
-      "command": "scripts/terraform.sh",
-      "args": [
-        "plan"
-      ],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "command": "cd tests && go test",
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -17,34 +18,72 @@
         "showReuseMessage": false,
         "clear": false,
         "close": false
+      },
+      "icon": {
+        "id": "beaker",
+        "color": "terminal.ansiGreen"
+      },
+      "runOptions": {
+        "instanceLimit": 1
       }
     },
     {
-      "label": "terraform apply",
-      "detail": "Create & alter the resources",
+      "label": "Tidy tests",
+      "detail": "Run `go mod tidy` for the tests folder",
       "type": "shell",
-      "command": "scripts/terraform.sh",
-      "args": [
-        "apply"
-      ],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "command": "cd tests && go mod tidy",
       "presentation": {
         "echo": true,
         "reveal": "always",
-        "focus": true,
-        "panel": "new",
+        "focus": false,
+        "panel": "dedicated",
         "showReuseMessage": false,
         "clear": false,
         "close": false
+      },
+      "icon": {
+        "id": "gripper",
+        "color": "terminal.ansiYellow"
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "Init tests",
+      "detail": "Run `go mod init` for the tests folder",
+      "type": "shell",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "command": "cd tests && go mod init ${input:modName}",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": false,
+        "close": false
+      },
+      "icon": {
+        "id": "chevron-up",
+        "color": "terminal.ansiYellow"
+      },
+      "runOptions": {
+        "instanceLimit": 1
       }
     },
     {
       "label": "terraform destroy",
       "detail": "Destroy the resources managed by this repo",
       "type": "shell",
-      "command": "scripts/terraform.sh",
-      "args": [
-        "destroy"
-      ],
+      "command": "terraform destroy",
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -53,16 +92,39 @@
         "showReuseMessage": false,
         "clear": false,
         "close": false
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      },
+      "icon": {
+        "id": "debug-stop",
+        "color": "terminal.ansiRed"
+      }
+    },
+    {
+      "label": "terraform apply",
+      "detail": "Create & alter the resources",
+      "type": "shell",
+      "command": "terraform apply",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": false,
+        "close": false
+      },
+      "icon": {
+        "id": "play",
+        "color": "terminal.ansiGreen"
       }
     },
     {
       "label": "terraform init",
       "detail": "Initialize Terraform providers",
       "type": "shell",
-      "command": "scripts/terraform.sh",
-      "args": [
-        "init"
-      ],
+      "command": "terraform init",
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -71,7 +133,43 @@
         "showReuseMessage": false,
         "clear": false,
         "close": false
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      },
+      "icon": {
+        "id": "chevron-up",
+        "color": "terminal.ansiYellow"
       }
     },
+    {
+      "label": "terraform plan",
+      "detail": "Initialize Terraform providers",
+      "type": "shell",
+      "command": "terraform plan",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": false,
+        "close": false
+      },
+      "icon": {
+        "id": "checklist",
+        "color": "terminal.ansiYellow"
+      },
+      "runOptions": {
+        "instanceLimit": 1,
+      }
+    },
+  ],
+  "inputs": [
+    {
+      "id": "modName",
+      "description": "Go module name for the tests folder",
+      "type": "promptString"
+    }
   ]
 }
