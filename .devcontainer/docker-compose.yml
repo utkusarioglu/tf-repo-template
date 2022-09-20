@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  terraform:
+    volumes:
+      - vscode-extensions:/root/.vscode-server/extensions
+      - vscode-extensions-insiders:/root/.vscode-server-insiders/extensions
+      - ~/.config/gh:/terratest/.config/gh:ro
+      - go:/go
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+volumes:
+  vscode-extensions:
+    name: terraform-repo-template-vscode-extensions
+  vscode-extensions-insiders:
+    name: terraform-repo-template-vscode-extensions-insiders
+  go:
+    name: terraform-repo-template-go
