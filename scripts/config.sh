@@ -80,7 +80,7 @@ check_ingress_file_config() {
 
 MAIN_VAR_FILE="vars/$TF_VARS_MAIN_FILE_NAME.$ENVIRONMENT.tfvars"
 REPO_CONFIG_FILE=".repo.config"
-TEMPLATE_CONFIG_FILE=".template.config"
+PARENT_TEMPLATE_CONFIG_FILE=".parent.config"
 
 GREEN_TEXT="\e[32m"
 DEFAULT_TEXT="\e[0m"

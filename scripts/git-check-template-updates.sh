@@ -71,7 +71,7 @@ check_repo_template_updates() {
 }
 
 check_parent_template_updates() {
-  config_response=$(check_config_attributes "Parent" "$TEMPLATE_CONFIG_FILE")
+  config_response=$(check_config_attributes "Parent" "$PARENT_TEMPLATE_CONFIG_FILE")
   if [[ "$config_response" != *"Error"* ]] && [[ "$config_response" != *"Warn"* ]]
   then
     parent_template_status=$(check_template_updates \
@@ -119,7 +119,7 @@ display_parent_template_updates() {
     echo -e "${RED_TEXT}Corrupted parent template record${DEFAULT_TEXT}"
     cat <<EOF
 
-In order to correct the error, config file '$TEMPLATE_CONFIG_FILE.TEMPLATE_LAST_COMMIT_EPOCH'
+In order to correct the error, config file '$PARENT_TEMPLATE_CONFIG_FILE.TEMPLATE_LAST_COMMIT_EPOCH'
 has been altered with a value that will resolve the issue. 
 Please commit this file.
 EOF

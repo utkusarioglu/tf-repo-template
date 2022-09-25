@@ -13,7 +13,7 @@ git_template_update_record() {
   record_target=$REPO_CONFIG_FILE
   if [[ "$update_mode" == "template" ]];
     then
-      record_target=$TEMPLATE_CONFIG_FILE
+      record_target=$PARENT_TEMPLATE_CONFIG_FILE
     fi
   if [ ! -f $record_target ];
   then
