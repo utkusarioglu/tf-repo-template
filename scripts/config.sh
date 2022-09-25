@@ -3,6 +3,13 @@
 source .env 2> /dev/null
 source .repo.config
 
+REPO_CONFIG_FILE=".repo.config"
+PARENT_TEMPLATE_CONFIG_FILE=".parent.config"
+
+GREEN_TEXT="\e[32m"
+DEFAULT_TEXT="\e[0m"
+RED_TEXT="\e[31m"
+
 check_env () {
   if [ -z "$ENVIRONMENT" ];
   then
@@ -48,7 +55,7 @@ check_repo_template_config() {
 }
 
 check_parent_template_config() {
-  file_name=".template.config"
+  file_name=$PARENT_TEMPLATE_CONFIG_FILE
   if [ ! -f "$file_name" ];
   then
     echo "Error \`$file_name\` file is required to configure the scripts' behavior"
@@ -79,9 +86,3 @@ check_ingress_file_config() {
 
 
 MAIN_VAR_FILE="vars/$TF_VARS_MAIN_FILE_NAME.$ENVIRONMENT.tfvars"
-REPO_CONFIG_FILE=".repo.config"
-PARENT_TEMPLATE_CONFIG_FILE=".parent.config"
-
-GREEN_TEXT="\e[32m"
-DEFAULT_TEXT="\e[0m"
-RED_TEXT="\e[31m"
