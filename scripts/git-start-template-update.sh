@@ -50,8 +50,8 @@ fi
 if [[ $(git branch) == *"$local_staging_branch"* ]];
 then
   cat << EOF
-Error: There is already a branch named '$local_staging_branch'. Either provide 
-a different local branch name or delete the existing branch.
+Error: There is already a branch named '$local_staging_branch'. 
+Either provide a different local branch name or delete the existing branch.
 EOF
   exit 2
 fi
@@ -94,15 +94,29 @@ git checkout -b $local_staging_branch
 git fetch $TEMPLATE_REPO_ORIGIN
 template_date_human=$(git log $template_ref -1 --format=%cd --date=format:'%Y-%m-%d %H:%M:%S')
 template_date_epoch=$(date -d "$template_date_human" +%s)
-git_template_update_record "$record_target" "$template_date_human" "$template_date_epoch"
 
-git merge \
+merge_response=$(git merge \
   --squash \
   --allow-unrelated-histories \
   --strategy-option theirs \
-  $template_ref
-git reset --mixed $merge_branch
+  $template_ref 2>&1)
 git remote remove $TEMPLATE_REPO_ORIGIN 1> /dev/null
+
+if [[ "$merge_response" == *"error"* ]];
+then
+  git checkout $merge_branch
+  git branch -D $local_staging_branch
+  echo
+  echo "Error: There was a git error during the merging process:"
+  echo
+  echo "$merge_response"
+  echo
+  echo "Changes have been reverted. Please restart the process once the error is resolved."
+  exit 5
+fi
+
+git reset --mixed $merge_branch
+git_template_update_record "$record_target" "$template_date_human" "$template_date_epoch"
 
 echo
 echo -e "${GREEN_TEXT}Template update started${DEFAULT_TEXT}"
