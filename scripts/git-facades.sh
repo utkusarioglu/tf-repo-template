@@ -8,18 +8,14 @@ git_remote_add() {
 }
 
 git_template_update_record() {
-  template_date_human=$1
-  template_date_epoch=$2
-  record_target=$REPO_CONFIG_FILE
-  if [[ "$update_mode" == "template" ]];
-    then
-      record_target=$PARENT_TEMPLATE_CONFIG_FILE
-    fi
+  record_target=$1
+  template_date_human=$2
+  template_date_epoch=$3
   if [ ! -f $record_target ];
   then
-    touch $REPO_CONFIG_FILE
+    touch $record_target
   else
-    sed -i '/TEMPLATE_LAST_COMMIT_EPOCH/d' $REPO_CONFIG_FILE 
+    sed -i '/TEMPLATE_LAST_COMMIT_EPOCH/d' $record_target 
   fi
-  echo "TEMPLATE_LAST_COMMIT_EPOCH=$template_date_epoch # $template_date_human" >> $REPO_CONFIG_FILE
+  echo "TEMPLATE_LAST_COMMIT_EPOCH=$template_date_epoch # $template_date_human" >> $record_target
 }

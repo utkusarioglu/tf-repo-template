@@ -74,11 +74,17 @@ then
   exit 1
 fi
 
+record_target=$REPO_CONFIG_FILE
+if [[ "$update_mode" == "parent" ]];
+then
+  record_target=$PARENT_TEMPLATE_CONFIG_FILE
+fi
+
 git checkout -b $local_staging_branch
 git fetch $TEMPLATE_REPO_ORIGIN
 template_date_human=$(git log $template_ref -1 --format=%cd --date=format:'%Y-%m-%d %H:%M:%S')
 template_date_epoch=$(date -d "$template_date_human" +%s)
-git_template_update_record "$template_date_human" "$template_date_epoch"
+git_template_update_record "$record_target" "$template_date_human" "$template_date_epoch"
 
 git merge \
   --squash \
@@ -101,7 +107,7 @@ Template date:   $template_date_human
 You can now reject the changes that you do not want, and then merge/rebase them 
 with '$merge_branch' or any other branch you prefer.
 
-Note that the \`$record_target.TEMPLATE_LAST_COMMIT_EPOCH\` now records the date of 
-the last commit of the template. You should commit this line if you accept any
-of the changes from the template repo.
+Note that the \`TEMPLATE_LAST_COMMIT_EPOCH\` in \`$record_target\`  now records the 
+date of the last commit of the template. You should commit this line if you 
+accept any of the changes from the template repo.
 EOF
