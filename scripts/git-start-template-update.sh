@@ -65,6 +65,16 @@ EOF
   exit 3
 fi
 
+local_repo_url=$(git remote get-url origin)
+if [[ "$local_repo_url" == "$TEMPLATE_REPO_URL" ]]
+then
+  cat <<EOF
+Error: Local repo url is the same as the remote template url. This can mean
+that there is a configuration error with the url of '$update_mode'.
+EOF
+  exit 4
+fi
+
 source scripts/git-facades.sh
 git_remote_add $TEMPLATE_REPO_ORIGIN $TEMPLATE_REPO_URL
 
