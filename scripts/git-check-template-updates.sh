@@ -16,8 +16,10 @@ check_template_updates() {
   git fetch $template_repo_origin > /dev/null
   template_date_human=$(git log $template_repo_ref -1 --format=%cd --date=format:'%Y-%m-%d %H:%M:%S')
   template_date_epoch=$(date -d "$template_date_human" +%s)
-
-  if [ "$template_last_commit_epoch" -lt "$template_date_epoch" ];
+  
+  local_repo_url=$(git remote get-url origin)
+  if [[ "$local_repo_url" != "$template_repo_url" ]] && \
+     [ "$template_last_commit_epoch" -lt "$template_date_epoch" ];
   then
     diff=$(git diff HEAD $template_repo_ref)
     if [ -z "$diff" ];
