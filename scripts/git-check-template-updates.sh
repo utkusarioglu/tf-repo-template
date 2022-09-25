@@ -95,7 +95,7 @@ display_repo_template_updates() {
 
   if [[ "$repo_template_status" == *"has a faulty record"* ]]
   then
-    echo -e "${RED_TEXT}Corrupted repo template record${DEFAULT_TEXT}"
+    echo -e "${RED_TEXT}Outdated repo template record${DEFAULT_TEXT}"
     cat <<EOF
 
 In order to correct the error, config file '$REPO_CONFIG_FILE.TEMPLATE_LAST_COMMIT_EPOCH'
@@ -116,7 +116,7 @@ display_parent_template_updates() {
 
   if [[ "$parent_template_status" == *"has a faulty record"* ]]
   then
-    echo -e "${RED_TEXT}Corrupted parent template record${DEFAULT_TEXT}"
+    echo -e "${RED_TEXT}Outdated parent template record${DEFAULT_TEXT}"
     cat <<EOF
 
 In order to correct the error, config file '$PARENT_TEMPLATE_CONFIG_FILE.TEMPLATE_LAST_COMMIT_EPOCH'
