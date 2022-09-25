@@ -59,6 +59,7 @@ check_repo_template_updates() {
   repo_config_response=$(check_config_attributes "Repo" "$REPO_CONFIG_FILE")
   if [[ "$repo_config_response" != *"Error"* ]];
   then
+    source $REPO_CONFIG_FILE
     repo_template_status=$(check_template_updates \
       $TEMPLATE_REPO_ORIGIN \
       $TEMPLATE_REPO_BRANCH \
@@ -74,6 +75,7 @@ check_parent_template_updates() {
   config_response=$(check_config_attributes "Parent" "$PARENT_TEMPLATE_CONFIG_FILE")
   if [[ "$config_response" != *"Error"* ]] && [[ "$config_response" != *"Warn"* ]]
   then
+    source $PARENT_TEMPLATE_CONFIG_FILE
     parent_template_status=$(check_template_updates \
       $TEMPLATE_REPO_ORIGIN \
       $TEMPLATE_REPO_BRANCH \
