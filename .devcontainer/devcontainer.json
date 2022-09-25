@@ -4,6 +4,7 @@
     "../.docker/docker-compose.dev.yml",
     "docker-compose.yml"
   ],
+  "postCreateCommand": "scripts/post-create-command.sh",
   "service": "terraform",
   "workspaceFolder": "/utkusarioglu-com/templates/terraform-repo-template",
   "customizations": {
