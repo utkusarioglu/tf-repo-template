@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scripts/terraform.sh init
+terraform init
 
 cd tests && go mod tidy && cd ..
 
