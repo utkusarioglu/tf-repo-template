@@ -74,7 +74,7 @@ check_repo_template_updates() {
       echo "$repo_config_response"
     fi
   else
-    echo "Info: Skipping repo template updates as this is a template repo"
+    echo "Info: Skipping repo template update check, this repo isn't eligible."
   fi
 }
 
@@ -95,7 +95,7 @@ check_parent_template_updates() {
       echo "$config_response" 
     fi
   else
-    echo "Info: Skipping parent template updates as this is a regular repo"
+    echo "Info: Skipping parent template update check, this repo isn't eligible."
   fi
 }
 
