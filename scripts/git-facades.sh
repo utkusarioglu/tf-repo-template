@@ -19,3 +19,8 @@ git_template_update_record() {
   fi
   echo "TEMPLATE_LAST_COMMIT_EPOCH=$template_date_epoch # $template_date_human" >> $record_target
 }
+
+git_last_commit_utc_date() {
+  repo_ref=$1
+  TZ=UTC0 git log "$repo_ref" -1 --format=%cd --date=format:'%Y-%m-%d %H:%M:%S'
+}

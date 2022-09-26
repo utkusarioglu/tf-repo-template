@@ -92,7 +92,7 @@ fi
 
 git checkout -b $local_staging_branch
 git fetch $TEMPLATE_REPO_ORIGIN
-template_date_human=$(git log $template_ref -1 --format=%cd --date=format:'%Y-%m-%d %H:%M:%S')
+template_date_human=$(git_last_commit_utc_date $template_ref)
 template_date_epoch=$(date -d "$template_date_human" +%s)
 
 merge_response=$(git merge \

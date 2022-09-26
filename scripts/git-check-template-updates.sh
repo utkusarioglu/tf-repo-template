@@ -14,7 +14,7 @@ check_template_updates() {
   fi
 
   git fetch $template_repo_origin > /dev/null
-  template_date_human=$(TZ=UTC0 git log $template_repo_ref -1 --format=%cd --date=format:'%Y-%m-%d %H:%M:%S')
+  template_date_human=$(git_last_commit_utc_date $template_repo_ref)
   template_date_epoch=$(date -d "$template_date_human" +%s)
   
   local_repo_url=$(git remote get-url origin)
