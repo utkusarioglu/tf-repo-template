@@ -58,34 +58,44 @@ check_config_attributes() {
 }
 
 check_repo_template_updates() {
-  repo_config_response=$(check_config_attributes "Repo" "$REPO_CONFIG_FILE")
-  if [[ "$repo_config_response" != *"Error"* ]];
+  if [[ $REPO_UPDATE_TYPE == "repository" ]];
   then
-    source $REPO_CONFIG_FILE
-    repo_template_status=$(check_template_updates \
-      $TEMPLATE_REPO_ORIGIN \
-      $TEMPLATE_REPO_BRANCH \
-      $TEMPLATE_REPO_URL \
-      $TEMPLATE_LAST_COMMIT_EPOCH \
-    )
+    repo_config_response=$(check_config_attributes "Repo" "$REPO_CONFIG_FILE")
+    if [[ "$repo_config_response" != *"Error"* ]];
+    then
+      source $REPO_CONFIG_FILE
+      repo_template_status=$(check_template_updates \
+        $TEMPLATE_REPO_ORIGIN \
+        $TEMPLATE_REPO_BRANCH \
+        $TEMPLATE_REPO_URL \
+        $TEMPLATE_LAST_COMMIT_EPOCH \
+      )
+    else
+      echo "$repo_config_response"
+    fi
   else
-    echo "$repo_config_response"
+    echo "Info: Skipping repo template updates as this is a template repo"
   fi
 }
 
 check_parent_template_updates() {
-  config_response=$(check_config_attributes "Parent" "$PARENT_TEMPLATE_CONFIG_FILE")
-  if [[ "$config_response" != *"Error"* ]] && [[ "$config_response" != *"Warn"* ]]
+  if [[ $REPO_UPDATE_TYPE == "template" ]];
   then
-    source $PARENT_TEMPLATE_CONFIG_FILE
-    parent_template_status=$(check_template_updates \
-      $TEMPLATE_REPO_ORIGIN \
-      $TEMPLATE_REPO_BRANCH \
-      $TEMPLATE_REPO_URL \
-      $TEMPLATE_LAST_COMMIT_EPOCH \
-    )
+    config_response=$(check_config_attributes "Parent" "$PARENT_TEMPLATE_CONFIG_FILE")
+    if [[ "$config_response" != *"Error"* ]] && [[ "$config_response" != *"Warn"* ]]
+    then
+      source $PARENT_TEMPLATE_CONFIG_FILE
+      parent_template_status=$(check_template_updates \
+        $TEMPLATE_REPO_ORIGIN \
+        $TEMPLATE_REPO_BRANCH \
+        $TEMPLATE_REPO_URL \
+        $TEMPLATE_LAST_COMMIT_EPOCH \
+      )
+    else
+      echo "$config_response" 
+    fi
   else
-    echo "$config_response" 
+    echo "Info: Skipping parent template updates as this is a regular repo"
   fi
 }
 

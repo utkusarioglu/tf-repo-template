@@ -3,6 +3,7 @@
 source scripts/config.sh
 source scripts/git-check-template-updates.sh
 check_env
+check_repo_update_type
 check_repo_template_updates
 check_parent_template_updates
 
