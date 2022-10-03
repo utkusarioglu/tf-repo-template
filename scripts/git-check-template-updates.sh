@@ -1,5 +1,5 @@
 source scripts/config.sh
-source scripts/git-facades.sh
+source scripts/git-utils.sh
 
 check_template_updates() {
   template_repo_origin=$1
@@ -16,6 +16,12 @@ check_template_updates() {
   git fetch $template_repo_origin > /dev/null
   template_date_human=$(git_last_commit_utc_date $template_repo_ref)
   template_date_epoch=$(date -d "$template_date_human" +%s)
+
+  record_target=$REPO_CONFIG_FILE
+  if [[ "$update_mode" == "parent" ]];
+  then
+    record_target=$PARENT_TEMPLATE_CONFIG_FILE
+  fi
   
   local_repo_url=$(git remote get-url origin)
   if [[ "$local_repo_url" != "$template_repo_url" ]] && \
@@ -25,7 +31,10 @@ check_template_updates() {
     if [ -z "$diff" ];
     then
       echo "$template_repo_origin has a faulty record"
-      git_template_update_record "$template_date_human" "$template_date_epoch"
+      git_template_update_record \
+        "$record_target" \
+        "$template_date_human" \
+        "$template_date_epoch"
     else
       echo "$template_repo_origin has an update"
     fi

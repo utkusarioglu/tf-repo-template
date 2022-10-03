@@ -1,5 +1,8 @@
 #!/bin/bash
 
-echo "Starting Terratest…"
 mkdir -p logs
-cd tests && go test -timeout 90m && cd ..
+
+echo "Starting Terratest…"
+cd tests 
+env $(cat ../.env | xargs) go test -timeout 90m 
+cd ..

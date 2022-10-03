@@ -24,3 +24,15 @@ git_last_commit_utc_date() {
   repo_ref=$1
   TZ=UTC0 git log "$repo_ref" -1 --format=%cd --date=format:'%Y-%m-%d %H:%M:%S'
 }
+
+git_template_repo_url_update() {
+  record_target=$1
+  template_repo_url=$2
+  if [ ! -f $record_target ];
+  then
+    touch $record_target
+  else
+    sed -i '/TEMPLATE_REPO_URL/d' $record_target 
+  fi
+  echo "TEMPLATE_REPO_URL=$template_repo_url" >> $record_target
+}

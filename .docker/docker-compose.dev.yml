@@ -1,10 +1,14 @@
 version: "3.9"
 
 services:
-  terraform-repo-template:
-    container_name: terraform-repo-template
-    image: utkusarioglu/terraform-devcontainer:1.2.14
-    volumes:
-      - ..:/utkusarioglu-com/templates/terraform-repo-template
+  tf-repo-template:
+    container_name: tf-repo-template
+    image: utkusarioglu/tf-devcontainer:1.2.15
     environment:
-      TZ: Etc/UTC 
+      TZ: Etc/UTC0
+    extra_hosts:
+      tf-repo-template.templates.utkusarioglu.com: host-gateway
+    volumes:
+      - type: bind
+        source: ..
+        target: /utkusarioglu-com/templates/tf-repo-template

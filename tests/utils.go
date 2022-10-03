@@ -7,6 +7,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/gruntwork-io/terratest/modules/environment"
 	"github.com/gruntwork-io/terratest/modules/logger"
 )
 
@@ -22,8 +23,10 @@ func retrieveVarFiles(t *testing.T) []string {
 		isDisabled := strings.Contains(filename, ".disabled.")
 		isTfVars := strings.HasSuffix(filename, ".tfvars")
 		isTfVarsJson := strings.HasSuffix(filename, ".tfvars.json")
-		isExample := strings.Contains(filename, ".example")
-		if !isDisabled && (isTfVars || isTfVarsJson) && !isExample {
+		isExample := strings.HasSuffix(filename, ".example")
+		environment := environment.GetFirstNonEmptyEnvVarOrFatal(t, []string {"ENVIRONMENT"})
+		isOfCurrentEnvironment := strings.Contains(filename, fmt.Sprintf(".%s.", environment))
+		if !isDisabled && (isTfVars || isTfVarsJson) && !isExample && isOfCurrentEnvironment {
 			varFiles = append(varFiles, fmt.Sprintf("%s/%s", varsFolder, filename))
 		}
 	}

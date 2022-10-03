@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/gruntwork-io/terratest/modules/environment"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 	"github.com/stretchr/testify/assert"
@@ -11,6 +12,7 @@ import (
 
 func TestTemplate(t *testing.T) {
 	t.Parallel()
+	environment.RequireEnvVar(t, "ENVIRONMENT")
 	repoPath := ".."
 	varFiles := retrieveVarFiles(t)
 	timestamp := createTimestamp()
@@ -31,7 +33,7 @@ func TestTemplate(t *testing.T) {
 	test_structure.RunTestStage(t, "validate", func() {
 		terraformOptions := test_structure.LoadTerraformOptions(t, ".")
 		output := terraform.Output(t, terraformOptions, "greeting")
-		assert.Equal(t, "Hello, terraform-repo-template!", output)
+		assert.Equal(t, "Hello, tf-repo-template!", output)
 	})
 
 	test_structure.RunTestStage(t, "teardown", func() {
