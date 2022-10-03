@@ -4,7 +4,6 @@ source scripts/config.sh
 check_repo_config
 check_repo_template_config
 
-template_auto_reject=$TEMPLATE_AUTO_REJECT
 repo_class=$(cat .devcontainer/devcontainer.json | jq -r '.name')
 repo_service=$(cat .devcontainer/devcontainer.json | jq -r '.service')
 repo_path=$(pwd)
@@ -23,6 +22,7 @@ then
   check_parent_template_config
 fi
 
+template_auto_reject=$TEMPLATE_AUTO_REJECT
 local_staging_branch=${3:-"chore/${update_mode}-template-update"}
 merge_branch=${4:-$default_merge_branch}
 template_ref="$TEMPLATE_REPO_ORIGIN/$TEMPLATE_REPO_BRANCH"
