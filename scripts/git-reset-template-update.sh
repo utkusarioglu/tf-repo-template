@@ -21,7 +21,7 @@ branch_to_delete=chore/${update_mode}-template-update
 if [[ $(git branch) != *"$branch_to_delete"* ]];
 then
   cat << EOF
-Error: There is no branch named '$local_staging_branch'. 
+Error: There is no branch named '$branch_to_delete'. 
 The reset operation will halt in order not to cause any damage.
 EOF
   exit 2
