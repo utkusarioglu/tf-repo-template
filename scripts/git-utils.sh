@@ -18,7 +18,7 @@ git_template_update_record() {
     sed -i '/TEMPLATE_LAST_COMMIT_EPOCH/d' $record_target 
   fi
   echo "TEMPLATE_LAST_COMMIT_EPOCH=$template_date_epoch # \
-    $template_date_human" $record_target
+    $template_date_human" >> $record_target
   echo "Updated template record in '$record_target' with epoch: \
     '$template_date_epoch'"
 }
