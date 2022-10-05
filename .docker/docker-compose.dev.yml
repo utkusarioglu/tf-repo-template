@@ -3,7 +3,7 @@ version: "3.9"
 services:
   tf-repo-template:
     container_name: tf-repo-template
-    image: utkusarioglu/tf-devcontainer:1.2.15
+    image: utkusarioglu/tf-devcontainer:1.2.16
     environment:
       TZ: Etc/UTC0
     extra_hosts:
