@@ -21,7 +21,7 @@
       },
       "icon": {
         "id": "beaker",
-        "color": "terminal.ansiGreen"
+        "color": "terminal.ansiYellow"
       },
       "runOptions": {
         "instanceLimit": 1
@@ -50,7 +50,7 @@
       },
       "icon": {
         "id": "debug-stop",
-        "color": "terminal.ansiRed"
+        "color": "terminal.ansiGreen"
       }
     },
     {
@@ -98,7 +98,7 @@
       },
       "icon": {
         "id": "chevron-up",
-        "color": "terminal.ansiYellow"
+        "color": "terminal.ansiGreen"
       }
     },
     {
@@ -120,7 +120,7 @@
       },
       "icon": {
         "id": "checklist",
-        "color": "terminal.ansiYellow"
+        "color": "terminal.ansiGreen"
       },
       "runOptions": {
         "instanceLimit": 1,
