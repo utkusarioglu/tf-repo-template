@@ -5,10 +5,10 @@ services:
     volumes:
       - type: volume
         source: vscode-extensions
-        target: /root/.vscode-server/extensions
+        target: /home/terraform/.vscode-server/extensions
       - type: volume
         source: vscode-extensions-insiders
-        target: /root/.vscode-server-insiders/extensions
+        target: /home/terraform/.vscode-server-insiders/extensions
       - type: bind
         source: ~/.config/gh
         target: /home/terraform/.config/gh
