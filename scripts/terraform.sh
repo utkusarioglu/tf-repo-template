@@ -34,7 +34,11 @@ var_files=$(find vars \
   -type f \( \
     \( -iname "*.tfvars" -or -iname "*.tfvars.json" \) \
     -and \
+    \( -iname "*.$ENVIRONMENT.*" -or -iname "*.common.*" \) \
+    -and \
     \( ! -iname "*.$tf_vars_file_disabled_phrase.*" \) \) \
   -printf '-var-file=vars/%f ')
 
-terraform $tf_commands $var_files $additional_params
+tf_command=$(echo "terraform $tf_commands $var_files $additional_params" | xargs)
+echo "Executing: '$tf_command'…"
+$tf_command
