@@ -43,3 +43,6 @@ terraform.rc
 /logs
 /plans
 /tests/.test-data
+
+*.issue.md
+*.pr.md
