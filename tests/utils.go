@@ -21,12 +21,13 @@ func retrieveVarFiles(t *testing.T) []string {
 	for _, file := range files {
 		filename := file.Name()
 		isDisabled := strings.Contains(filename, ".disabled.")
+		isCommon := strings.Contains(filename, ".common.")
 		isTfVars := strings.HasSuffix(filename, ".tfvars")
 		isTfVarsJson := strings.HasSuffix(filename, ".tfvars.json")
 		isExample := strings.HasSuffix(filename, ".example")
 		environment := environment.GetFirstNonEmptyEnvVarOrFatal(t, []string {"ENVIRONMENT"})
 		isOfCurrentEnvironment := strings.Contains(filename, fmt.Sprintf(".%s.", environment))
-		if !isDisabled && (isTfVars || isTfVarsJson) && !isExample && isOfCurrentEnvironment {
+		if !isDisabled && (isTfVars || isTfVarsJson) && !isExample && (isOfCurrentEnvironment || isCommon) {
 			varFiles = append(varFiles, fmt.Sprintf("%s/%s", varsFolder, filename))
 		}
 	}
