@@ -1,3 +1,5 @@
+source .env
+
 MAIN_VAR_FILE="vars/$TF_VARS_MAIN_FILE_NAME.$ENVIRONMENT.tfvars"
 
 check_env_for_terraform_values () {
