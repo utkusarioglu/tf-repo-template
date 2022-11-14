@@ -1,7 +1,8 @@
 #!/bin/bash
 
-source scripts/config.sh || exit 1
-check_env
+source scripts/git-checks.sh || exit 1
+source scripts/terraform-checks.sh || exit 2
+check_env_for_terraform_values
 check_repo_config
 check_tfvars_in_repo_config
 
