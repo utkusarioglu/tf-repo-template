@@ -49,3 +49,6 @@ terraform.rc
 *.issue.md
 *.pr.md
 /.certs
+/.ignore
+/.secrets
+/artifacts
